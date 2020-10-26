@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.vicente.modelagemconceitual.domain.Categoria;
+import com.vicente.modelagemconceitual.dto.CategoriaDTO;
 import com.vicente.modelagemconceitual.repositories.CategoriaRepository;
 import com.vicente.modelagemconceitual.services.exceptions.DataIntegrityException;
 import com.vicente.modelagemconceitual.services.exceptions.ObjectNotFoundException;
@@ -46,7 +47,6 @@ public class CategoriaService {
 			throw new DataIntegrityException("Não é possível excluir uma categoria que possuí produtos");
 
 		}
-
 	}
 
 	public List<Categoria> findAll() {
@@ -57,5 +57,9 @@ public class CategoriaService {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		return repo.findAll(pageRequest);
 
+	}
+
+	public Categoria fromDTO(CategoriaDTO objDto) {
+		return new Categoria(objDto.getId(), objDto.getNome());
 	}
 }
